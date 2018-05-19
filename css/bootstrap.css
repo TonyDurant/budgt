@@ -330,6 +330,7 @@ textarea {
 button,
 input {
   overflow: visible;
+  margin-bottom: 0.3em;
 }
 
 button,
