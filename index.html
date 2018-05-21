@@ -34,103 +34,130 @@
 <!-- Main Wallet Transactions List -->
 <div class="bd-callout bd-callout-warning">
     <div id="transactions">
-        <table class="table">
-            <tbody id="entrydata">
-                <tr v-for="t in transactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
-                    <td>
-                        <i class="far fa-circle"></i>
-                    </td>
-                    <td>
-                        <b>{{ t.name }}</b>
-                    </td>
-                    <td style="text-align: right;">
-                        <span v-if="value(t) >= 0" class="badge badge-pill badge-success">{{ value(t) }}</span>
-                        <span v-if="value(t) < 0" class="badge badge-pill badge-info">{{ value(t) }}</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</br>
-
-<!-- Modal for transaction edit -->
-<div class="modal fade bd-example-modal-lg" id="tDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                Edit Transaction
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🍯</span>
-                            <span class="sr-only">icon</span>
-                            Honey Pot
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">💡</span>
-                            <span class="sr-only">icon</span>
-                            Bills
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🚘</span>
-                            <span class="sr-only">icon</span>
-                            Transport
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🍌</span>
-                            <span class="sr-only">icon</span>
-                            Groceries
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🍽</span>
-                            <span class="sr-only">icon</span>
-                            Eating Out
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🐶</span>
-                            <span class="sr-only">icon</span>
-                            Pets
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🍿</span>
-                            <span class="sr-only">icon</span>
-                            Entertainment
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">❤️</span>
-                            <span class="sr-only">icon</span>
-                            Health
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">💼</span>
-                            <span class="sr-only">icon</span>
-                            Holidays
-                        </button>
-                        <button type="button" class="btn btn-light">
-                            <span class="badge badge-light">🛍</span>
-                            <span class="sr-only">icon</span>
-                            Shopping
-                        </button>
-
+        <div v-for="(transactions, date) in transactionsByDate">
+            <div class="transactionDate">{{ date }}</div>
+            <table class="table">
+                <tbody id="entrydata">
+                    <tr v-for="t in transactions" @click="selectedT = t" data-toggle="modal" data-target="#tDetails" style="cursor: pointer;">
+                        <td style="width: 10%;">
+                            <i class="far fa-circle"></i>
+                        </td>
+                        <td style="width: 60%;">
+                            <b>{{ t.name }}</b>
+                        </td>
+                        <td style="text-align: right; width: 20%;">
+                            <span v-if="t.value >= 0" class="badge badge-pill badge-success">{{ t.value }}</span>
+                            <span v-if="t.value < 0" class="badge badge-pill badge-info">{{ t.value }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal for transaction edit -->
+        <div class="modal fade bd-example-modal-lg" id="tDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <table class="table table-borderless">
+                            <tbody id="entrydata">
+                                <tr>
+                                    <td>
+                                        <i class="far fa-circle"></i>
+                                    </td>
+                                    <td>
+                                        <b>{{ selectedT.name }}</b>
+                                    </td>
+                                    <td style="text-align: right;">
+                                        <span v-if="selectedT.value >= 0" class="badge badge-pill badge-success">{{ selectedT.value }}</span>
+                                        <span v-if="selectedT.value < 0" class="badge badge-pill badge-info">{{ selectedT.value }}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            
+                                <form>
+                                    <div class="form-group">
+                                        <label for="transactionName">Transaction name</label>
+                                        <input type="transactionName" class="form-control" aria-describedby="transactioHelp" placeholder="#Pizza @Dominos w/ friends" v-model="selectedT.name">
+                                        <small id="transactioHelp" class="form-text text-muted">Edit your transaction name</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="value">Value</label>
+                                        <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-20.00" v-model="selectedT.value">
+                                        <small id="transactioHelp" class="form-text text-muted">Edit your transaction value</small>
+                                    </div>
+                                </form>
+        
+                                <p>Category</p>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🍯</span>
+                                    <span class="sr-only">icon</span>
+                                    Honey Pot
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">💡</span>
+                                    <span class="sr-only">icon</span>
+                                    Bills
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🚘</span>
+                                    <span class="sr-only">icon</span>
+                                    Transport
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🍌</span>
+                                    <span class="sr-only">icon</span>
+                                    Groceries
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🍽</span>
+                                    <span class="sr-only">icon</span>
+                                    Eating Out
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🐶</span>
+                                    <span class="sr-only">icon</span>
+                                    Pets
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🍿</span>
+                                    <span class="sr-only">icon</span>
+                                    Entertainment
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">❤️</span>
+                                    <span class="sr-only">icon</span>
+                                    Health
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">💼</span>
+                                    <span class="sr-only">icon</span>
+                                    Holidays
+                                </button>
+                                <button type="button" class="btn btn-light">
+                                    <span class="badge badge-light">🛍</span>
+                                    <span class="sr-only">icon</span>
+                                    Shopping
+                                </button>
+        
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Save Changes</button>
                     </div>
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+</br>
 
 <!-- Navigation Buttons -->
 <nav class="navbar fixed-bottom navbar-light bg-light">
@@ -151,6 +178,7 @@
 <script src="js/StickyDate.js"></script>
 <script src="js/StickySummary.js"></script>
 <script src="js/transactions.js"></script>
+<script src="js/underscore.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </body>
 </html>

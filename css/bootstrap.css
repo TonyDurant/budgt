@@ -91,6 +91,12 @@
   .table-bordered td {
     border: 1px solid #ddd !important;
   }
+  .table-borderless th,
+  .table-borderless td,
+  .table-borderless thead th,
+  .table-borderless tbody + tbody {
+    border: 0;
+  }
 }
 
 *,
@@ -1562,7 +1568,7 @@ pre code {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: -0.5rem;
   background-color: transparent;
 }
 
@@ -1571,6 +1577,7 @@ pre code {
   padding: 0.75rem;
   vertical-align: top;
   border-top: 1px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .table thead th {
@@ -1603,6 +1610,13 @@ pre code {
 .table-bordered thead th,
 .table-bordered thead td {
   border-bottom-width: 2px;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
