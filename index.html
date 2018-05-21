@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Budgt — Regain Control Over Your Money</title>
+    <meta charset="utf-8">
+    <title>Budgt — Regain Control Over Your Money</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   
 </head>
 <body>
@@ -30,6 +31,9 @@
 <div id="wallet_balance">
     <h4><center><i class="fas fa-inbox"></i> {{ wallet_balance }}</center></h4>
 </div>
+
+<!-- Donutchart -->
+<div id="donutchart" style="width: 100%;"></div>
 
 <!-- Main Wallet Transactions List -->
 <div class="bd-callout bd-callout-warning">
@@ -87,63 +91,19 @@
                                         <small id="transactioHelp" class="form-text text-muted">Edit your transaction name</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="value">Value</label>
+                                        <label for="value">Amount</label>
                                         <input type="value" class="form-control" aria-describedby="valueHelp" placeholder="-20.00" v-model="selectedT.value">
-                                        <small id="transactioHelp" class="form-text text-muted">Edit your transaction value</small>
+                                        <small id="transactioHelp" class="form-text text-muted">Edit your transaction amount</small>
                                     </div>
                                 </form>
         
                                 <p>Category</p>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🍯</span>
-                                    <span class="sr-only">icon</span>
-                                    Honey Pot
+                                <center>
+                                <button data-toggle="button" style="width: 30%;" type="button" class="btn btn-outline-info" v-for="c in categories">
+                                    <img :src="'img/t_categories/' + c.icon">
+                                    <p>{{ c.name }}</p>
                                 </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">💡</span>
-                                    <span class="sr-only">icon</span>
-                                    Bills
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🚘</span>
-                                    <span class="sr-only">icon</span>
-                                    Transport
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🍌</span>
-                                    <span class="sr-only">icon</span>
-                                    Groceries
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🍽</span>
-                                    <span class="sr-only">icon</span>
-                                    Eating Out
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🐶</span>
-                                    <span class="sr-only">icon</span>
-                                    Pets
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🍿</span>
-                                    <span class="sr-only">icon</span>
-                                    Entertainment
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">❤️</span>
-                                    <span class="sr-only">icon</span>
-                                    Health
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">💼</span>
-                                    <span class="sr-only">icon</span>
-                                    Holidays
-                                </button>
-                                <button type="button" class="btn btn-light">
-                                    <span class="badge badge-light">🛍</span>
-                                    <span class="sr-only">icon</span>
-                                    Shopping
-                                </button>
+                                </center>
         
                             </div>
                         </div>
@@ -179,6 +139,7 @@
 <script src="js/StickySummary.js"></script>
 <script src="js/transactions.js"></script>
 <script src="js/underscore.js"></script>
+<script src="js/donutchart.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
 </body>
 </html>

@@ -67,3 +67,7 @@
 .table {
   background-color: white;
 }
+
+.btn-outline-info {
+  margin: 0.2em;
+}

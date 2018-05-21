@@ -32,6 +32,39 @@ var transactions = new Vue({
         selectedT: [],
         transactionValue: [],
         transactionsByDate: [],
+        categories: [
+            {
+                name: "Honeypot",
+                icon: "honeypot.png"
+            },{
+                name: "Bills",
+                icon: "bill.png"
+            },{
+                name: "Transaport",
+                icon: "car.png"
+            }, {
+                name: "Groceries",
+                icon: "groceries.png"
+            }, {
+                name: "Eating Out",
+                icon: "cutlery.png"
+            }, {
+                name: "Pets",
+                icon: "dog.png"
+            }, {
+                name: "Entertainment",
+                icon: "movies.png"
+            }, {
+                name: "Health",
+                icon: "health.png"
+            }, {
+                name: "Holidays",
+                icon: "holiday.png"
+            }, {
+                name: "Shopping",
+                icon: "shopping.png"
+            }
+        ],
         transactions: [
             {
                 "date": "03/11/2018",
